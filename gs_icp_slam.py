@@ -46,8 +46,10 @@ class GS_ICP_SLAM(SLAMParameters):
         self.rerun_viewer = args.rerun_viewer
         
         if self.rerun_viewer:
-            import subprocess
+            import subprocess, time
             print("Starting rerun web viewer at http://0.0.0.0:9090")
+            subprocess.run(["pkill", "-x", "rerun"], capture_output=True)
+            time.sleep(1)
             subprocess.Popen(["rerun", "--web-viewer"])
         
         camera_parameters_file = open(self.config)
