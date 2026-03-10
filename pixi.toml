@@ -27,11 +27,13 @@ ninja = "*"
 cmake = "*"
 cxx-compiler = "1.7.*"
 pcl = "*"
+numpy = "<2"
 eigen = "*"
+libgl = "*"
 
 [pypi-dependencies]
 open3d = "*"
-opencv-python = "*"
+opencv-python-headless = "*"
 
 diff-gaussian-rasterization = { path = "submodules/diff-gaussian-rasterization" }
 simple-knn = { path = "submodules/simple-knn" }
