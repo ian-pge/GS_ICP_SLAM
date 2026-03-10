@@ -321,7 +321,7 @@ class Mapper(SLAMParameters):
             images_folder = os.path.join(images_folder, "images")
             image_files = os.listdir(images_folder)
             image_files = sorted(image_files.copy())
-            for key in tqdm(image_files):
+            for key in tqdm(image_files, desc="Loading Evaluation Images"):
                 image_name = key.split(".")[0]
                 depth_image_name = f"depth{image_name[5:]}"    
                 color_paths.append(f"{self.dataset_path}/images/{image_name}.jpg")            
@@ -344,7 +344,7 @@ class Mapper(SLAMParameters):
         fig, axs = plt.subplots(1, 2, figsize=(10, 5))
         
         with torch.no_grad():
-            for i in tqdm(range(len(image_names))):
+            for i in tqdm(range(len(image_names)), desc="Rendering & Evaluating Metric"):
                 gt_depth_ = []
                 cam = self.mapping_cams[0]
                 c2w = final_poses[i]

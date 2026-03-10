@@ -111,7 +111,7 @@ class Tracker(SLAMParameters):
         if_mapping_keyframe = False
 
         self.total_start_time = time.time()
-        pbar = tqdm(total=self.num_images)
+        pbar = tqdm(total=self.num_images, desc="Tracking Camera Poses")
 
         for ii in range(self.num_images):
             self.iter_shared[0] = ii
@@ -340,7 +340,7 @@ class Tracker(SLAMParameters):
         if self.trajmanager.which_dataset == "replica":
             image_files = os.listdir(images_folder)
             image_files = sorted(image_files.copy())
-            for key in tqdm(image_files): 
+            for key in tqdm(image_files, desc="Loading Tracker Images"): 
                 image_name = key.split(".")[0]
                 depth_image_name = f"depth{image_name[5:]}"
                 
@@ -351,7 +351,7 @@ class Tracker(SLAMParameters):
                 depth_images.append(depth_image)
             return rgb_images, depth_images
         elif self.trajmanager.which_dataset == "tum":
-            for i in tqdm(range(len(self.trajmanager.color_paths))):
+            for i in tqdm(range(len(self.trajmanager.color_paths)), desc="Loading Tracker Images"):
                 rgb_image = cv2.imread(self.trajmanager.color_paths[i])
                 depth_image = np.array(o3d.io.read_image(self.trajmanager.depth_paths[i]))
                 rgb_images.append(rgb_image)

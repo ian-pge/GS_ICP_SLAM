@@ -46,8 +46,9 @@ class GS_ICP_SLAM(SLAMParameters):
         self.rerun_viewer = args.rerun_viewer
         
         if self.rerun_viewer:
-            rr.init("3dgsviewer")
-            rr.spawn(connect=False)
+            import subprocess
+            print("Starting rerun web viewer at http://0.0.0.0:9090")
+            subprocess.Popen(["rerun", "--web-viewer"])
         
         camera_parameters_file = open(self.config)
         camera_parameters_ = camera_parameters_file.readlines()

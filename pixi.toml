@@ -5,7 +5,15 @@ name = "GS_ICP_SLAM"
 platforms = ["linux-64"]
 version = "0.1.0"
 
+[activation.env]
+LD_LIBRARY_PATH = "${CONDA_PREFIX}/lib"
+
 [tasks]
+replica = "bash replica.sh"
+replica-unlimit = "bash replica_unlimit.sh"
+tum = "bash tum.sh"
+tum-unlimit = "bash tum_unlimit.sh"
+viewer = "python -W ignore gs_icp_slam.py --rerun_viewer"
 
 [dependencies]
 python = "3.10.*"
@@ -22,7 +30,7 @@ torchvision = "*"
 tqdm = "*"
 scipy = "*"
 torchmetrics = "*"
-rerun-sdk = "*"
+rerun-sdk = "==0.15.0"
 ninja = "*"
 cmake = "*"
 cxx-compiler = "1.7.*"
