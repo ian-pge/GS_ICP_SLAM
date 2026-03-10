@@ -1,0 +1,44 @@
+[workspace]
+authors = ["ian <ian.page38@gmail.com>"]
+channels = ["pytorch", "nvidia", "pyg", "conda-forge"]
+name = "GS_ICP_SLAM"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = "3.10.*"
+pytorch = "*"
+pytorch-cuda = "12.1.*"
+cuda-nvcc = "12.1.*"
+cuda-cccl = "12.1.*"
+cuda-cudart-dev = "12.1.*"
+cuda-driver-dev = "12.1.*"
+plyfile = "*"
+pip = "*"
+torchaudio = "*"
+torchvision = "*"
+tqdm = "*"
+scipy = "*"
+torchmetrics = "*"
+rerun-sdk = "*"
+ninja = "*"
+cmake = "*"
+cxx-compiler = "1.7.*"
+pcl = "*"
+eigen = "*"
+
+[pypi-dependencies]
+open3d = "*"
+opencv-python = "*"
+
+diff-gaussian-rasterization = { path = "submodules/diff-gaussian-rasterization" }
+simple-knn = { path = "submodules/simple-knn" }
+pygicp = { path = "submodules/fast_gicp" }
+
+[pypi-options]
+no-build-isolation = ["diff-gaussian-rasterization", "simple-knn", "pygicp"]
+
+
+
