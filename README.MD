@@ -15,118 +15,38 @@
 This repository is intended to substantiate the results reported in the paper. Additional features including visualization tools will be updated soon!
 
 ## Environments
-Install requirements
+Install [pixi](https://pixi.sh/latest/#installation) (if you haven't already):
 ```bash
-conda create -n gsicpslam python==3.9
-conda activate gsicpslam
-conda install pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia
-pip install -r requirements.txt
-```
-Also, PCL is needed for fast-gicp submodule.
-
-Install submodules
-
-```bash
-conda activate gsicpslam
-pip install submodules/diff-gaussian-rasterization
-pip install submodules/simple-knn
-
-cd submodules/fast_gicp
-mkdir build
-cd build
-cmake ..
-make
-cd ..
-python setup.py install --user
+curl -fsSL https://pixi.sh/install.sh | bash
 ```
 
+Then install the environments and submodules with:
+```bash
+pixi install
+```
 
-## Datasets
-
-- Replica
-  - Download
-    ```bash
-    bash download_replica.sh
-    ```
-  - Configure
-  
-    Please modify the directory structure to ours.
-
-    The original structure
-    ```bash
-    Replica
-        - room0
-            - results (contain rgbd images)
-                - frame000000.jpg
-                - depth000000.jpg
-                ...
-            - traj.txt
-        ...
-    ```
-    Our structure
-    ```bash
-    Replica
-        - room0
-            - images (contain rgb images)
-                - frame000000.jpg
-                ...
-            - depth_images (contain depth images)
-                - depth000000.jpg
-                ...
-            - traj.txt
-        ...
-    ```    
-
-- TUM-RGBD
-  - Download
-    ```bash
-        bash download_tum.sh
-    ```
+## Dataset
+Download and configure the **Replica** dataset:
+```bash
+pixi run download-replica
+```
 
 ## Run
-- Limited to 30 FPS
+Run the SLAM system on the Replica dataset:
+- **Limited to 30 FPS:**
     ```bash
-        # Replica
-        bash replica.sh
-        # TUM
-        bash tum.sh
+    pixi run replica
     ```
-
-- Unlimited tracking speed
+- **Unlimited tracking speed:**
     ```bash
-        # Replica
-        bash replica_unlimit.sh
-        # TUM
-        bash tum_unlimit.sh
+    pixi run replica-unlimit
     ```
-
-## Installing SIBR Viewer
-```bash
-cd SIBR_viewers
-cmake -Bbuild . -DCMAKE_BUILD_TYPE=Release
-cmake --build build -j24 --target install
-```
 
 ## Real-time demo
-### Using rerun.io viewer
-
-Rerun viewer shows the means of trackable Gaussians, and rendered image from reconstructed 3dgs map.
-
-![GIFMaker_me](https://github.com/Lab-of-AI-and-Robotics/GS_ICP_SLAM/assets/34827206/b4715071-2e4a-4d17-b7a2-612bbd32dbd0)
+You can visualize the map reconstruction and trackable Gaussians using the `rerun.io` viewer. Start the viewer by running:
 
 ```bash
-python -W ignore gs_icp_slam.py --rerun_viewer
+pixi run viewer
 ```
 
-
-### Using SIBR viewer
-```bash
-python -W ignore gs_icp_slam.py --dataset_path dataset/Replica/office0 --verbose
-
-# In other terminal
-cd SIBR_viewers
-./install/bin/SIBR_remoteGaussian_app --rendering-size 1280 720
-```
-
-## Docker
-Please see the README.md in the docker_files folder.
+![Rerun Viewer Demo](https://github.com/Lab-of-AI-and-Robotics/GS_ICP_SLAM/assets/34827206/b4715071-2e4a-4d17-b7a2-612bbd32dbd0)

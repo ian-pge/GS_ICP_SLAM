@@ -11,9 +11,8 @@ LD_LIBRARY_PATH = "${CONDA_PREFIX}/lib"
 [tasks]
 replica = "bash replica.sh"
 replica-unlimit = "bash replica_unlimit.sh"
-tum = "bash tum.sh"
-tum-unlimit = "bash tum_unlimit.sh"
 viewer = "python -W ignore gs_icp_slam.py --rerun_viewer"
+download-replica = "bash download_replica.sh && python restructure_replica.py"
 
 [dependencies]
 python = "3.10.*"
